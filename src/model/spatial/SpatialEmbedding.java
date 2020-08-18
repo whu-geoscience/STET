@@ -1,6 +1,6 @@
 package edu.whu.cgf.geoportal.util.gridsystem;
 
-import edu.whu.cgf.geoportal.config.GridConstant;
+import src.config.Model1Constant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
  * @author lyx
  */
 
-public class GridSystem {
+public class SpatialEmbedding {
     private String userName;
 
     private double x_min;
@@ -23,12 +23,12 @@ public class GridSystem {
     public static double gridSize;
 
     static {
-        gridSize = GridConstant.size;
+        gridSize = Model1Constant.gridSize;
     }
 
 
     //positionString like x_min+";"+x_max+";"+y_min+";"+y_max;
-    public GridSystem(String userName, String positionString) {
+    public SpatialEmbedding(String userName, String positionString) {
         String[] temp = positionString.split(";");
         this.userName = userName;
         this.x_min = Double.parseDouble(temp[0]);
@@ -40,7 +40,7 @@ public class GridSystem {
         y_length = (int) ((y_max - y_min) / gridSize) + 1;
     }
 
-    public GridSystem(String positionString) {
+    public SpatialEmbedding(String positionString) {
         String[] temp = positionString.split(";");
         this.x_min = Double.parseDouble(temp[0]);
         this.x_max = Double.parseDouble(temp[1]);
@@ -51,8 +51,7 @@ public class GridSystem {
         y_length = (int) ((y_max - y_min) / gridSize) + 1;
     }
 
-    //数据中出现的最大最小x与y值
-    public GridSystem(String userName, double x_min, double x_max, double y_min, double y_max) {
+    public SpatialEmbedding(String userName, double x_min, double x_max, double y_min, double y_max) {
         this.userName = userName;
         this.x_min = x_min;
         this.x_max = x_max;
@@ -70,7 +69,7 @@ public class GridSystem {
     }
 
     /**
-     * 找到给定边界所在本格子系统中的位置（LDA所用词）
+     * Find the position in the grid system where the given image is located (the term used by STET)
      *
      * @param p_x_min
      * @param p_x_max
@@ -114,7 +113,7 @@ public class GridSystem {
 
 
     /**
-     * 找到给定影像所在本格子系统中的位置（LDA所用词）
+     * Find the position in the grid system where the given image is located (the term used by STET)
      *
      * @param tlj
      * @param tlw
@@ -128,7 +127,6 @@ public class GridSystem {
      * @throws
      * @see
      */
-    //微分分割法
     public List<Grid> getGridIndex(double tlj, double tlw, double trj, double trw,
                                    double brj, double brw, double blj, double blw) {
         List<Grid> gridIndex = new ArrayList<Grid>();
@@ -156,7 +154,7 @@ public class GridSystem {
         int r_index = GetMax_Min.getMax(jindu);
         int l_index = GetMax_Min.getMin(jindu);
 
-        //网格划分后为正矩形的话则用最小边框矩形法
+        //If the grid is divided into a regular rectangle, use the minimum border rectangle method
         if (y[l_index] == y[b_index] || y[r_index] == y[b_index] || y[t_index] == y[l_index] || y[r_index] == y[t_index]) {
             return getGridIndex(jindu[l_index], jindu[r_index], weidu[b_index], weidu[t_index]);
         }
@@ -190,7 +188,7 @@ public class GridSystem {
         }
         //check
         if (gridIndex.size() != delta) {
-            System.err.println("格子数量不等");
+            System.err.println("Wrong number of grids");
         }
         return gridIndex;
     }

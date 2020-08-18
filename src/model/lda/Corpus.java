@@ -1,11 +1,8 @@
 package edu.whu.cgf.geoportal.util.lda;
 
 import edu.whu.cgf.geoportal.service.ImageElementService;
-import edu.whu.cgf.geoportal.util.gridsystem.GridSystem;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-
+import src.model.spatial.SpatialEmbedding;
+import src.config.Model1Constant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -13,30 +10,25 @@ import java.util.List;
 
 /**
  * a set of documents
- * 语料库，也就是文档集合
  *
  * @author lyx
  */
-@Component
+
 public class Corpus
 {
 
     @Autowired
     private ImageElementService imageElementService;
 
-    private int orderNum;
+    private int orderNum = Model1Constant.orderNum;
 
-    @Value("${RecommendConfig.orderNum}")
-    public void setOrderNum(int orderNum1){
-        this.orderNum = orderNum1;
-    }
 
 
     List<int[]> documentList;
     Vocabulary vocabulary;
 
-    /*
-    * 初始化两个列表 申请空间
+    /**
+    * Initialize two lists and apply for space
     *
     */
     public Corpus()
@@ -101,7 +93,7 @@ public class Corpus
     }
 
     /**
-     * 获取所有的数据，指定个数 
+     * Get all the data, specify the number
       * @param full	
     * @param vocabulary
     * @param gridSystem

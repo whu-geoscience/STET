@@ -4,18 +4,17 @@ package datesystem;
  * @author lyx
  */
 
-public class DateSystem {
-    //开始日期
+public class TemporalEmbedding {
+    //startDate
     private long startDate;
-    //聚类间隔
+    //interval
     private long interval;
 
-    public DateSystem(long startDate,long interval){
+    public TemporalEmbedding(long startDate,long interval){
         this.startDate=startDate;
         this.interval=interval;
     }
 
-    //实验以毫秒为单位的情况
     public long getIndex(long date){
         long minus = date - startDate;
         long i = minus/1000/60/60/24/interval;

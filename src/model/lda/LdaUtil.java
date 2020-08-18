@@ -1,6 +1,6 @@
 package edu.whu.cgf.geoportal.util.lda;
 
-import edu.whu.cgf.geoportal.config.Model1Constant;
+import src.config.Model1Constant;
 import edu.whu.cgf.geoportal.entity.recommenddata;
 import edu.whu.cgf.geoportal.service.ImageElementService;
 
@@ -44,7 +44,7 @@ public class LdaUtil
         return result;
     }
 
-    public static Map<String, Double> translate(double[] tp, double[][] phi, edu.whu.cgf.geoportal.util.lda.Vocabulary vocabulary, int limit)
+    public static Map<String, Double> translate(double[] tp, double[][] phi, Vocabulary vocabulary, int limit)
     {
         Map<String, Double>[] topicMapArray = translate(phi, vocabulary, limit);
 
@@ -56,7 +56,7 @@ public class LdaUtil
 
     public static String getTopTopic(double[] tp)
     {
-        //各个topic的概率和为1
+        // The sum of the probabilities of each topic is 1
         double p = -1.0;
         int t = -1;
         for (int k = 0; k < tp.length; k++)
@@ -67,8 +67,6 @@ public class LdaUtil
                 t = k;
             }
         }
-        //危险操作= =
-//        Test.inter_result.add(p);
         return t+","+p;
     }
 
